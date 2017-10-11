@@ -22,7 +22,7 @@
                             </arscnView>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXf-cr-KOH">
                                 <rect key="frame" x="147.5" y="567" width="80" height="80"/>
-                                <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="IFD-fe-Xpr"/>
                                     <constraint firstAttribute="width" constant="80" id="gUH-no-fDV"/>
@@ -37,6 +37,24 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a52-u2-ZDT">
+                                <rect key="frame" x="257.5" y="585" width="44" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6vr-9d-a3X"/>
+                                    <constraint firstAttribute="width" constant="44" id="sdt-cL-PBZ"/>
+                                </constraints>
+                                <state key="normal" image="reset"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="resetButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TT5-KT-Atg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -44,8 +62,10 @@
                             <constraint firstItem="GXf-cr-KOH" firstAttribute="centerX" secondItem="vlB-P4-jKL" secondAttribute="centerX" id="6m7-fv-oMx"/>
                             <constraint firstItem="vlB-P4-jKL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HkX-nZ-Nlf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vlB-P4-jKL" secondAttribute="trailing" id="K90-WO-M5W"/>
+                            <constraint firstItem="a52-u2-ZDT" firstAttribute="leading" secondItem="GXf-cr-KOH" secondAttribute="trailing" constant="30" id="QH5-ld-tbN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vlB-P4-jKL" secondAttribute="bottom" id="a3b-hX-Hb6"/>
                             <constraint firstItem="vlB-P4-jKL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eBD-2Z-YzJ"/>
+                            <constraint firstItem="a52-u2-ZDT" firstAttribute="centerY" secondItem="GXf-cr-KOH" secondAttribute="centerY" id="tvB-MG-KsZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -60,5 +80,6 @@
     </scenes>
     <resources>
         <image name="draw" width="44" height="44"/>
+        <image name="reset" width="30" height="30"/>
     </resources>
 </document>

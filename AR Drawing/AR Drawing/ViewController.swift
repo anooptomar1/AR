@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     lazy var indicatorNode: SCNNode = {
         let node = SCNNode(geometry: SCNSphere(radius: 0.01))
+        node.name = "indicator"
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
         return node
         
@@ -31,7 +32,18 @@ class ViewController: UIViewController {
         //指示器
         scnView.scene.rootNode.addChildNode(indicatorNode)
     }
-
+    
+    @IBAction func resetButtonClick(_ sender: Any) {
+        scnView.scene.rootNode.enumerateChildNodes { (node, _) in
+            if node.name == "sphere" {
+                node.removeFromParentNode()
+            }
+        }
+        
+        //重新获取新的坐标
+        scnView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
+    }
+    
 }
 
 extension ViewController: ARSCNViewDelegate{
@@ -43,8 +55,11 @@ extension ViewController: ARSCNViewDelegate{
         let location = SCNVector3(transform.m41, transform.m42, transform.m43)
         let currentPositionOfCamera = orientation + location
         DispatchQueue.main.async {
+            //isHighlighted属性只能用在UI线程
             if self.drawButton.isHighlighted{
+                self.indicatorNode.position = currentPositionOfCamera
                 let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.01))
+                sphereNode.name = "sphere"
                 sphereNode.position = currentPositionOfCamera
                 sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
                 self.scnView.scene.rootNode.addChildNode(sphereNode)

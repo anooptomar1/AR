@@ -23,34 +23,47 @@ class ViewController: UIViewController {
         //光源
         scnView.autoenablesDefaultLighting = true
         
+        
+        
         let sunNode = createSunNode()
         sunNode.position = SCNVector3(0, 0, -1)
         scnView.scene.rootNode.addChildNode(sunNode)
         
+        let earthParent = SCNNode()
+        let venusParent = SCNNode()
+        earthParent.position = sunNode.position
+        venusParent.position = sunNode.position
+        scnView.scene.rootNode.addChildNode(earthParent)
+        scnView.scene.rootNode.addChildNode(venusParent)
+        
         let venusNode = createVenusNode()
         venusNode.position = SCNVector3(0.75, 0, 0)
-        sunNode.addChildNode(venusNode)
+        venusParent.addChildNode(venusNode)
         
         let earthNode = createEarthNode()
         earthNode.position = SCNVector3(0, 0, 1.2)
-        sunNode.addChildNode(earthNode)
+        earthParent.addChildNode(earthNode)
+        
+        let moonParent = SCNNode()
+        earthParent.addChildNode(moonParent)
+        moonParent.position = earthNode.position
         
         let moonNode = createMoonNode()
         moonNode.position = SCNVector3(0, 0, 0.35)
-        earthNode.addChildNode(moonNode)
+        moonParent.addChildNode(moonNode)
         
+        //地球与金星的公转不同
+
+        let earthParentAction = rotation(time: 10)
+        let venusParentAction = rotation(time: 8)
+        let moonParentAction = rotation(time: 5)
+        
+        earthParent.runAction(earthParentAction)
+        venusParent.runAction(venusParentAction)
+        moonParent.runAction(moonParentAction)
     }
     
-    func planet(geometry: SCNGeometry, diffuse: UIImage?, emission: UIImage?, specular: UIImage?, normal: UIImage?) -> SCNNode {
-        let node = SCNNode(geometry: geometry)
-        //贴图
-        node.geometry?.firstMaterial?.diffuse.contents = diffuse
-        node.geometry?.firstMaterial?.emission.contents = emission
-        node.geometry?.firstMaterial?.specular.contents = specular
-        node.geometry?.firstMaterial?.normal.contents = normal
-        
-        return node
-    }
+ 
     
     func createSunNode() -> SCNNode {
         let sunNode = planet(geometry: SCNSphere(radius: 0.35),
@@ -110,6 +123,25 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension ViewController {
+    func planet(geometry: SCNGeometry, diffuse: UIImage?, emission: UIImage?, specular: UIImage?, normal: UIImage?) -> SCNNode {
+        let node = SCNNode(geometry: geometry)
+        //贴图
+        node.geometry?.firstMaterial?.diffuse.contents = diffuse
+        node.geometry?.firstMaterial?.emission.contents = emission
+        node.geometry?.firstMaterial?.specular.contents = specular
+        node.geometry?.firstMaterial?.normal.contents = normal
+        
+        return node
+    }
+    
+    func rotation(time: TimeInterval) -> SCNAction {
+        let rotation = SCNAction.rotateBy(x: 0, y: .pi * 2, z: 0, duration: time)
+        let action = SCNAction.repeatForever(rotation)
+        return action
+    }
 }
 
 

@@ -23,25 +23,86 @@ class ViewController: UIViewController {
         //光源
         scnView.autoenablesDefaultLighting = true
         
-        //创建地球
-        let earthNode = SCNNode()
+        let sunNode = createSunNode()
+        sunNode.position = SCNVector3(0, 0, -1)
+        scnView.scene.rootNode.addChildNode(sunNode)
         
-        //地球贴图
-        earthNode.geometry = SCNSphere(radius: 0.3)
-        earthNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "earth_daymap")
-        earthNode.geometry?.firstMaterial?.emission.contents = UIImage(named: "earth_clouds")
-        earthNode.geometry?.firstMaterial?.specular.contents = UIImage(named: "earth_specular")
-        earthNode.geometry?.firstMaterial?.normal.contents = UIImage(named: "earth_normal")
+        let venusNode = createVenusNode()
+        venusNode.position = SCNVector3(0.75, 0, 0)
+        sunNode.addChildNode(venusNode)
         
-        //创建自转动作
+        let earthNode = createEarthNode()
+        earthNode.position = SCNVector3(0, 0, 1.2)
+        sunNode.addChildNode(earthNode)
+        
+        let moonNode = createMoonNode()
+        moonNode.position = SCNVector3(0, 0, 0.35)
+        earthNode.addChildNode(moonNode)
+        
+    }
+    
+    func planet(geometry: SCNGeometry, diffuse: UIImage?, emission: UIImage?, specular: UIImage?, normal: UIImage?) -> SCNNode {
+        let node = SCNNode(geometry: geometry)
+        //贴图
+        node.geometry?.firstMaterial?.diffuse.contents = diffuse
+        node.geometry?.firstMaterial?.emission.contents = emission
+        node.geometry?.firstMaterial?.specular.contents = specular
+        node.geometry?.firstMaterial?.normal.contents = normal
+        
+        return node
+    }
+    
+    func createSunNode() -> SCNNode {
+        let sunNode = planet(geometry: SCNSphere(radius: 0.35),
+                         diffuse: UIImage(named: "sun"),
+                         emission: nil,
+                         specular: nil,
+                         normal: nil)
+        
+        let action = SCNAction.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 30)
+        let rotaionAction = SCNAction.repeatForever(action)
+        sunNode.runAction(rotaionAction)
+    
+        return sunNode
+    }
+    
+    func createEarthNode() -> SCNNode {
+        let earthNode = planet(geometry: SCNSphere(radius: 0.2),
+                               diffuse: UIImage(named: "earth_daymap"),
+                               emission: UIImage(named: "earth_clouds"),
+                               specular: UIImage(named: "earth_specular"),
+                               normal: UIImage(named: "earth_normal"))
+        
+        
+        //自转动作
         let action = SCNAction.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 8)
         let rotaionAction = SCNAction.repeatForever(action)
         earthNode.runAction(rotaionAction)
         
-        earthNode.position = SCNVector3(0,0,-1)
+        return earthNode
+    }
+    
+    func createVenusNode() -> SCNNode {
+        let venusNode = planet(geometry: SCNSphere(radius: 0.1),
+                      diffuse: UIImage(named: "venus_surface"),
+                      emission: UIImage(named: "venus_atmosphere"),
+                      specular: nil,
+                      normal: nil)
         
-        scnView.scene.rootNode.addChildNode(earthNode)
+        let action = SCNAction.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 5)
+        let rotaionAction = SCNAction.repeatForever(action)
+        venusNode.runAction(rotaionAction)
         
+        return venusNode
+    }
+    
+    func createMoonNode() -> SCNNode {
+        let moonNode = planet(geometry: SCNSphere(radius: 0.05),
+                              diffuse: UIImage(named: "moon"),
+                              emission: nil,
+                              specular: nil,
+                              normal: nil)
+        return moonNode
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +110,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
 }
+
+
+
 

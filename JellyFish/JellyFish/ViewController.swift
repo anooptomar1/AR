@@ -39,18 +39,31 @@ class ViewController: UIViewController {
     }
     
     func addNode() {
-        let jellyfishScene = SCNScene(named: "scn.scnassets/Jellyfish.scn")!
+        let jellyfishScene = SCNScene(named: "art.scnassets/Jellyfish.scn")!
         //recursively 是否遍历所有节点，false为只遍历根节点的直接节点
         let jellyfishNode = jellyfishScene.rootNode.childNode(withName: "Jellyfish", recursively: false)!
-        jellyfishNode.position = SCNVector3(0, 0, 1)
+        jellyfishNode.position = randomPostion()
         scnView.scene.rootNode.addChildNode(jellyfishNode)
+    }
+    
+    func randomPostion() -> SCNVector3 {
+        let spaceHeight: Float = 1.0
+        let spceWidth: Float = 1.0
+        let spaceLength: Float = 1.0
+        
+        let x = random(spaceLength)
+        let y = random(spaceHeight)
+        let z = random(spceWidth)
+        
+        return SCNVector3(x, y, z)
     }
     
     func animation(node: SCNNode) {
         if !node.animationKeys.isEmpty { return }
         let animation = CABasicAnimation(keyPath: "scale")
-        animation.fromValue = SCNVector3(1, 1, 1)
-        animation.toValue = SCNVector3(1.5, 1.5, 1.5)
+        animation.fromValue = SCNVector3(0.1, 0.1, 0.1)
+        animation.toValue = SCNVector3(0.15, 0.15, 0.15)
+        animation.autoreverses = true
         animation.repeatCount = 5
         animation.duration = 0.1
         node.addAnimation(animation, forKey: nil)
@@ -62,9 +75,19 @@ class ViewController: UIViewController {
     
     
     @IBAction func stop(_ sender: UIButton) {
+        scnView.scene.rootNode.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
+        }
+        scnView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
     }
+}
 
-
+func random(_ number: Float) -> Float{
+    var value = Float(arc4random() % (UInt32(number) * 10)) * 0.1
+    if (arc4random() % 100) % 2 == 0 {
+        value = -value
+    }
+    return value
 }
 
 

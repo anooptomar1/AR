@@ -33,7 +33,14 @@ class ViewController: UIViewController {
         if !hitTest.isEmpty {
             let result = hitTest.first
             if let node = result?.node {
+                //用于控制动画效果
+                SCNTransaction.begin()
                 animation(node: node)
+                SCNTransaction.completionBlock = {
+                    node.removeFromParentNode()
+                }
+                SCNTransaction.commit()
+                
             }
         }
     }

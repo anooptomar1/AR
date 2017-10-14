@@ -24,7 +24,6 @@
 		3562877A1F919FFF00F581BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3562877C1F919FFF00F581BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		356287881F91A21600F581BA /* Jellyfish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Jellyfish.png; sourceTree = "<group>"; };
-		3562878A1F91AAB400F581BA /* Jellyfish.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Jellyfish.scn; path = ../art.scnassets/Jellyfish.scn; sourceTree = "<group>"; };
 		3562878B1F91AAC700F581BA /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,7 +72,6 @@
 		356287871F91A21600F581BA /* Textures */ = {
 			isa = PBXGroup;
 			children = (
-				3562878A1F91AAB400F581BA /* Jellyfish.scn */,
 				356287881F91A21600F581BA /* Jellyfish.png */,
 			);
 			path = Textures;

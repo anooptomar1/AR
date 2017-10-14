@@ -65,7 +65,8 @@ class ViewController: UIViewController {
             let node = result.node
             let scaleAction = SCNAction.scale(by: gesture.scale, duration: 0)
             node.runAction(scaleAction)
-            
+            print(gesture.scale)
+            gesture.scale = 1
         }
     }
     

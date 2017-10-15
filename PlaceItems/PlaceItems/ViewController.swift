@@ -86,7 +86,8 @@ class ViewController: UIViewController {
                 let rotationAction = SCNAction.repeatForever(action)
                 node.runAction(rotationAction)
                 
-            }else{
+            }
+            if gesture.state == .ended {
                 node.removeAllActions()
             }
             
@@ -97,11 +98,25 @@ class ViewController: UIViewController {
         guard let selectedItem = selectedItem else { return }
         let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")!
         let node = scene.rootNode.childNode(withName: "\(selectedItem)", recursively: false)!
+        if selectedItem == "table" {
+            centerPivot(node: node)
+        }
         let transform = hitTestResult.worldTransform
         let position = SCNVector3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
         node.position = position
         scnView.scene.rootNode.addChildNode(node)
     }
+    
+    //设置旋转、伸缩等的中轴
+    func centerPivot(node: SCNNode) {
+        let max = node.boundingBox.max
+        let min = node.boundingBox.min
+        node.pivot = SCNMatrix4MakeTranslation(
+            min.x + (max.x - min.x) * 0.5,
+            min.y + (max.y - min.y) * 0.5,
+            min.z + (max.z - min.z) * 0.5)
+    }
+
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {

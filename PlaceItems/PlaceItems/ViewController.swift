@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         didSet{
             collectionView.dataSource = self
             collectionView.delegate = self
+            collectionView.allowsMultipleSelection = false
         }
     }
     
@@ -67,7 +68,6 @@ class ViewController: UIViewController {
             let node = result.node
             let scaleAction = SCNAction.scale(by: gesture.scale, duration: 0)
             node.runAction(scaleAction)
-            print(gesture.scale)
             gesture.scale = 1
         }
     }
@@ -94,8 +94,9 @@ class ViewController: UIViewController {
     }
     
     func addItem(hitTestResult: ARHitTestResult) {
-        let scene = SCNScene(named: "Models.scnassets/mug.scn")!
-        let node = scene.rootNode.childNode(withName: "mug", recursively: false)!
+        guard let selectedItem = selectedItem else { return }
+        let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")!
+        let node = scene.rootNode.childNode(withName: "\(selectedItem)", recursively: false)!
         let transform = hitTestResult.worldTransform
         let position = SCNVector3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
         node.position = position

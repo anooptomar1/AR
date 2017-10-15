@@ -14,5 +14,10 @@ class ItemCell: UICollectionViewCell {
     
     @IBOutlet weak var textLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        backgroundColor = isSelected ? UIColor.lightGray : UIColor.groupTableViewBackground
+    }
+    
     
 }

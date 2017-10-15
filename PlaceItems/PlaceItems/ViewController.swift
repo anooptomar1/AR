@@ -41,8 +41,10 @@ class ViewController: UIViewController {
     func registerGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handlerTapGesture(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.handlerPinchGesture(_:)))
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handlerLongPressGesture(_:)))
         scnView.addGestureRecognizer(tapGestureRecognizer)
         scnView.addGestureRecognizer(pinchGestureRecognizer)
+        scnView.addGestureRecognizer(longPressGestureRecognizer)
     }
 
     @objc func handlerTapGesture(_ gesture: UITapGestureRecognizer) {
@@ -67,6 +69,27 @@ class ViewController: UIViewController {
             node.runAction(scaleAction)
             print(gesture.scale)
             gesture.scale = 1
+        }
+    }
+    
+    @objc func handlerLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        let view = gesture.view as! ARSCNView
+        let location = gesture.location(in: view)
+        let hitTest = view.hitTest(location)
+        if !hitTest.isEmpty {
+            
+            let result = hitTest.first!
+            let node = result.node
+            if gesture.state == .began{
+                
+                let action = SCNAction.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 1)
+                let rotationAction = SCNAction.repeatForever(action)
+                node.runAction(rotationAction)
+                
+            }else{
+                node.removeAllActions()
+            }
+            
         }
     }
     

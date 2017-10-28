@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Basketball" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iFW-DZ-I96">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </arscnView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plane Detecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMl-OD-GhN">
+                                <rect key="frame" x="0.0" y="50" width="375" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="4fD-FS-8wI">
+                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="i1s-Bk-v60"/>
+                                    <constraint firstAttribute="width" constant="20" id="kG2-uD-pXv"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wdd-F4-V2H">
+                                <rect key="frame" x="171" y="617" width="32" height="30"/>
+                                <state key="normal" title="Shot">
+                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showButtonTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="4yZ-w6-Riy"/>
+                                    <action selector="showButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wQo-tf-8ip"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Wdd-F4-V2H" firstAttribute="centerX" secondItem="iFW-DZ-I96" secondAttribute="centerX" id="1ck-kj-rqf"/>
+                            <constraint firstItem="uMl-OD-GhN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bea-bx-7ks"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wdd-F4-V2H" secondAttribute="bottom" constant="20" id="Gcf-Ia-n2B"/>
+                            <constraint firstItem="4fD-FS-8wI" firstAttribute="centerX" secondItem="iFW-DZ-I96" secondAttribute="centerX" id="LUE-1q-8My"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iFW-DZ-I96" secondAttribute="trailing" id="cBO-cJ-fLj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uMl-OD-GhN" secondAttribute="trailing" id="dDS-bp-L3s"/>
+                            <constraint firstItem="iFW-DZ-I96" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="doE-WG-xfZ"/>
+                            <constraint firstItem="iFW-DZ-I96" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lT6-7C-Wel"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iFW-DZ-I96" secondAttribute="bottom" id="qZW-gd-cFv"/>
+                            <constraint firstItem="uMl-OD-GhN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="qqB-N3-oqW"/>
+                            <constraint firstItem="4fD-FS-8wI" firstAttribute="centerY" secondItem="iFW-DZ-I96" secondAttribute="centerY" id="scY-kx-7Mp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="planeInfoLabel" destination="uMl-OD-GhN" id="2gb-m7-hed"/>
+                        <outlet property="scnView" destination="iFW-DZ-I96" id="zba-Nb-Fx5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="plus" width="24" height="24"/>
+    </resources>
+</document>
